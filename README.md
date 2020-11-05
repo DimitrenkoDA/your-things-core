@@ -61,3 +61,14 @@ APP_ENV=test bin/down
 ```
 
 to kill the environment which is used for testing. Same script can be used to just shutdown the environment and free some resources on your computer. Notice, that when we are sending envrionment down we are also removing all it's volumes. As a result all the information stored in database will be lost.
+
+
+## FAQ
+
+### How can I debug?
+
+Put word `byebug` on any line of the code where you would like to do the debugging. And run the test which hits this line. Execution will be paused there and you will be able to use all the power of `byebug` (https://github.com/deivid-rodriguez/byebug). Basically call any vairable by name or do whatever it's possible to do on this line of code.
+
+### How can I create new migration?
+
+There is rake task for it. Run `bin/rake generate:migration name_of_migration_goes_here`. Migration will be generated and saved into `db/migrations`. Edit it and run `bin/rake db:migrate` in order to apply it to the database. Did something wrong and want to fix it? Run `bin/rake db:rollback` and migration will be rolled back. Wanna run migration for test environment? Use `APP_ENV=test bin/rake db:migrate`. Also your migrations are automatically applied when you're spinning new environment up using `bin/up` and trying to run any command you have.
