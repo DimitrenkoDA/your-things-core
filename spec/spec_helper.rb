@@ -19,6 +19,20 @@ module RspecHelperMethods
   end
 end
 
+RSpec::Matchers.define :include_timestamps_of do |obj, *fields|
+  def given_fields_or_default(fields, default: [ :created_at, :updated_at ])
+    fields.any? ? fields : default
+  end
+
+  match do |json|
+    given_fields_or_default(fields).all? { |field| json[field] == obj.send(field).utc.iso8601 }
+  end
+
+  match_when_negated do |json|
+    given_fields_or_default(fields).none? { |field| json[field] == obj.send(field).utc.iso8601 }
+  end
+end
+
 RSpec.configure do |config|
   config.order = :random
 
@@ -57,6 +71,14 @@ RSpec.configure do |config|
 
   config.before(:each) do
     FFaker::Random.reset!
+  end
+
+  config.before(:example, :with_access_token) do
+    headers = {
+      "Accept" => "application/json",
+      "X-Access-Token" => access_token
+    }
+    headers.each { |key, value| header key, value }
   end
 
   config.include FactoryBot::Syntax::Methods

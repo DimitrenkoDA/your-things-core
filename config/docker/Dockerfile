@@ -1,4 +1,4 @@
-FROM ruby:2.7.1
+FROM ruby:2.6.5-stretch
 
 RUN apt-get update -qq \
   && DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
