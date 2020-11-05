@@ -1,21 +1,23 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.1"
+ruby "2.6.5"
 
 gem "puma"
 gem "jwt"
 gem "pg"
 gem "rake", "~> 12.3.2"
 gem "bcrypt"
-gem "activerecord", "~> 6.0.3", require: "active_record"
-gem "activesupport", "~> 6.0.3", require: "active_support"
+gem "activerecord", "~> 5.2.2", require: "active_record"
+gem "activesupport", "~> 5.2.2", require: "active_support"
 gem "rack-cors"
 gem "zeitwerk"
 gem "rucksack", github: "trickstersio/rucksack"
 gem "faktory_worker_ruby"
 gem "clockwork", require: false
-gem "performify", "~> 1.0.1"
+gem "performify", "~> 1.0"
+gem "parascope", "~> 1.4"
+gem "pg_party"
 
 group :development, :test do
   gem "byebug"
