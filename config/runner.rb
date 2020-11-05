@@ -19,6 +19,8 @@ class Runner
   end
 
   def up
+    local "mkdir -p #{cache_dir_path}"
+
     if !ready_to_run?
       prepare_runner
     end
@@ -56,6 +58,10 @@ class Runner
     end
 
     @ready_to_run = true
+  end
+
+  private def digest(content)
+    Digest::SHA256.hexdigest(content)
   end
 
   private def cache(key)
@@ -133,5 +139,3 @@ class Runner
     @docker_compose_config_path ||= Pathname.new(File.expand_path("docker/docker-compose.yml", CONFIG_PATH))
   end
 end
-
-
