@@ -5,6 +5,9 @@ Router = Rucksack.router do
   post '/operators/login', Sessions::Endpoints::Create, params: { kind: Sessions::Owners::Operator::KIND }
   post '/users/login', Sessions::Endpoints::Create, params: { kind: Sessions::Owners::User::KIND }
 
+  post '/users/sign_up', Users::Endpoints::SignUp
+  # post 'sellers/sign_up', Users::Endpoints::SignUp
+
   get '/roles', Roles::Endpoints::Index
 
   get '/users', Users::Endpoints::Index
