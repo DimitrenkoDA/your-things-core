@@ -7,6 +7,8 @@ module Sessions
       case kind
       when Sessions::Owners::Operator::KIND
         Sessions::Owners::Operator.new
+      when Sessions::Owners::User::KIND
+        Sessions::Owners::User.new
       else
         raise InvalidKind, "Invalid session kind: #{kind}"
       end
