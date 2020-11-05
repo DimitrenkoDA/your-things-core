@@ -1,9 +1,9 @@
 module Models
-  class Project < Record
+  class Role < Record
     has_many :user_roles, class_name: 'Models::UserRole'
     has_many :users, class_name: 'Models::User', through: :user_roles
 
-    validates :code, presence: true, uniq: true
+    validates :code, presence: true
 
     enum code: {
       admin: 'admin',

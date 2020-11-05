@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :user_role, class: Models::UserRole do
+  factory :user_role, class: 'Models::UserRole' do
     role
     user
 

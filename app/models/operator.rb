@@ -6,6 +6,14 @@ module Models
 
     before_validation :normalize_email
 
+    def operator?
+      true
+    end
+
+    def user?
+      false
+    end
+
     private def normalize_email
       self.email = email&.strip&.downcase
     end
