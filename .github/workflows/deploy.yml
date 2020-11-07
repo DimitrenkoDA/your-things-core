@@ -1,0 +1,39 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v1
+
+      - name: Prepare SSH key
+        uses: webfactory/ssh-agent@v0.1.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Login to docker registry
+        run: docker login --username ${DOCKER_REGISRY_USER} --password ${DOCKER_REGISRY_PASSWORD}
+        env:
+          DOCKER_REGISRY_USER: ${{ secrets.DOCKER_REGISRY_USER }}
+          DOCKER_REGISRY_PASSWORD: ${{ secrets.DOCKER_REGISRY_PASSWORD }}
+
+      - name: Build docker image
+        run: docker build --tag dimitrenkoda/your-things-core:${GITHUB_SHA} .
+
+      - name: Push docker image
+        run: docker push dimitrenkoda/your-things-core:${GITHUB_SHA}
+
+      - name: Deploy
+        run: cat ${GITHUB_WORKSPACE}/docker-compose.yml | envsubst | ssh -o StrictHostKeyChecking=no dimitrenkoda@mskpropusk.com 'docker-compose -p your-things-core -f - up -d traefik api'
+        env:
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
