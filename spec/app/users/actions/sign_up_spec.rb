@@ -31,7 +31,7 @@ RSpec.describe Users::Actions::SignUp do
       expect { subject.execute! }.to change { Models::User.count }.by(0)
     end
 
-    it "does not create new user" do
+    it "does not create new user role" do
       expect { subject.execute! }.to change { Models::UserRole.count }.by(0)
     end
   end

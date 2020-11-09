@@ -34,8 +34,17 @@ module Users
         success!
       end
 
-      private def search
+      private
+
+      def search
         @search ||= Users::Search.new({ user_id: inputs[:user_id] }, current_user: current_user)
+      end
+
+      def authorize!
+        return if current_user.operator?
+        return if inputs[:user_id] == current_user.id
+
+        access_denied!
       end
     end
   end

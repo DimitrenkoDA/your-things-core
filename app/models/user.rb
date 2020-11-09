@@ -9,8 +9,6 @@ module Models
 
     before_validation :normalize_email
 
-    delegate :roles, :admin?, :buyer?, :seller?, to: :roles_processor
-
     def operator?
       false
     end
@@ -19,14 +17,26 @@ module Models
       true
     end
 
+    def roles
+      return self.user_roles.preload(:role).map(&:role)
+    end
+
+    def admin?
+      self.user_roles.joins(:role).where(roles: { code: 'admin' }).any?
+    end
+
+    def buyer?
+      self.user_roles.joins(:role).where(roles: { code: 'buyer' }).any?
+    end
+
+    def seller?
+      self.user_roles.joins(:role).where(roles: { code: 'seller' }).any?
+    end
+
     private
 
     def normalize_email
       self.email = email&.strip&.downcase
-    end
-
-    def roles_processor
-      @roles_processor ||= RolesProcessor.new(self)
     end
   end
 end
