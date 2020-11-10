@@ -76,9 +76,24 @@ RSpec.describe Users::Actions::Update do
 
   context "when current user is not operator" do
     let(:current_user) { create(:admin) }
+    let(:user_id) { current_user.id }
 
-    it "raises ActiveRecord::RecordNotFound" do
-      expect { subject.execute! }.to raise_error(ActiveRecord::RecordNotFound)
+    it "succeeds" do
+      subject.execute!
+      expect(subject.success?).to be true
+    end
+  
+    it "updates email" do
+      subject.execute!
+      expect(subject.user.email).to eq(email)
+    end
+
+    context "when current user updates someone else's profile" do
+      let(:user_id) { user.id }
+
+      it "raises ActiveRecord::RecordNotFound" do
+        expect { subject.execute! }.to raise_error(ActiveRecord::RecordNotFound)
+      end
     end
   end
 end
