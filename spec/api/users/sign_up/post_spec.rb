@@ -1,5 +1,7 @@
 RSpec.describe "POST /users/sign_up" do
   let(:email) { 'email@test.frj'  }
+  let(:password) { 'qwerty123xPj' }
+  let(:password_confirmation) { 'qwerty123xPj' }
 
   let(:headers) do
     {
@@ -9,7 +11,9 @@ RSpec.describe "POST /users/sign_up" do
 
   let(:body) do
     {
-      email: email
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation
     }
   end
 
