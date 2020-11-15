@@ -3,13 +3,17 @@ RSpec.describe Users::Actions::SignUp do
 
   let(:args) do
     {
-      email: email
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation
     }
   end
 
   before { Models::Role.find_or_create_by(code: 'buyer', title: 'Покупатель') }
 
   let(:email) { 'email@test.frj' }
+  let(:password) { 'qwerty123xPj' }
+  let(:password_confirmation) { 'qwerty123xPj' }
 
   it "succeeds" do
     subject.execute!

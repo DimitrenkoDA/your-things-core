@@ -14,7 +14,9 @@ module Users
 
       private def args
         {
-          email: request.json[:email]
+          email: request.json[:email],
+          password: request.json[:password],
+          password_confirmation: request.json[:password_confirmation]
         }
       end
     end
