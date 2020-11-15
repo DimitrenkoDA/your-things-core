@@ -26,7 +26,7 @@ RSpec.describe UserRoles::Actions::Activate do
     expect(subject.user_role).to be_active
   end
 
-  context "when driver is already active" do
+  context "when seller is already active" do
     let!(:user_role) { create(:user_role, role: role, user: user, activated_at: 2.day.ago) }
 
     it "raises ActiveRecord::RecordNotFound" do

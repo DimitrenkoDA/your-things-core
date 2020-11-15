@@ -9,10 +9,10 @@ Router = Rucksack.router do
 
   get '/roles', Roles::Endpoints::Index
 
-  # get '/shops', Shops::Endpoints::Index
+  get '/shops', Shops::Endpoints::Index
   # post '/shops', Shops::Endpoints::Create
   # post '/shops/:shop_id', Shops::Endpoints::Review
-  # get '/shops/:shop_id', Shops::Endpoints::Show
+  get '/shops/:shop_id', Shops::Endpoints::Show
   # patch '/shops/:shop_id', Shops::Endpoints::Update
   # delete '/shops/:shop_id', Shops::Endpoints::Delete
 
