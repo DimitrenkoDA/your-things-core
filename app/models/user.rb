@@ -32,7 +32,7 @@ module Models
     end
 
     def seller?
-      self.user_roles.joins(:role).where(roles: { code: 'seller' }).any?
+      self.user_roles.active.joins(:role).where(roles: { code: 'seller' }).any?
     end
 
     private
