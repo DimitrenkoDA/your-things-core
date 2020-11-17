@@ -1,6 +1,6 @@
 RSpec.describe "GET /shops/:shop_id", :with_access_token do
   let!(:user) { create(:seller) }
-  let!(:first_shop) { create(:shop, user: user) }
+  let!(:first_shop) { create(:shop, :reviewed, user: user) }
 
   let(:current_user) { create(:operator) }
   let(:access_token) { Sessions::Session.token(Sessions::Owners::Operator::KIND, current_user) }

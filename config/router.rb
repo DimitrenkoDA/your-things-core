@@ -11,7 +11,7 @@ Router = Rucksack.router do
 
   get '/shops', Shops::Endpoints::Index
   post '/shops', Shops::Endpoints::Create
-  # post '/shops/:shop_id', Shops::Endpoints::Review
+  post '/shops/:shop_id/review', Shops::Endpoints::Review
   get '/shops/:shop_id', Shops::Endpoints::Show
   patch '/shops/:shop_id', Shops::Endpoints::Update
   delete '/shops/:shop_id', Shops::Endpoints::Delete

@@ -2,7 +2,7 @@ RSpec.describe Shops::Presenters::Show do
   subject { described_class.new(shop) }
 
   let(:user) { create(:seller) }
-  let(:shop) { create(:shop, user: user) }
+  let(:shop) { create(:shop, :reviewed, user: user) }
 
   describe "#as_json" do
     it "returns required attributes" do
