@@ -3,6 +3,8 @@ module Models
     has_many :user_roles, class_name: 'Models::UserRole', dependent: :destroy
     has_many :roles, class_name: 'Models::Role', through: :user_roles
 
+    has_one :shop, class_name: 'Models::Shop'
+
     validates :email, presence: true, uniqueness: true
 
     has_secure_password
@@ -30,7 +32,7 @@ module Models
     end
 
     def seller?
-      self.user_roles.joins(:role).where(roles: { code: 'seller' }).any?
+      self.user_roles.active.joins(:role).where(roles: { code: 'seller' }).any?
     end
 
     private

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_07_201515) do
+ActiveRecord::Schema.define(version: 2020_11_15_125253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 2020_11_07_201515) do
     t.string "code", null: false
     t.string "title", null: false
     t.index ["code"], name: "roles_code_key", unique: true
+  end
+
+  create_table "shops", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "reviewed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "shops_user_key", unique: true
   end
 
   create_table "user_roles", force: :cascade do |t|
@@ -48,6 +58,7 @@ ActiveRecord::Schema.define(version: 2020_11_07_201515) do
     t.index ["email"], name: "users_email_key", unique: true
   end
 
+  add_foreign_key "shops", "users", name: "shops_user_fkey"
   add_foreign_key "user_roles", "roles", name: "roles_user_role_fkey"
   add_foreign_key "user_roles", "users", name: "users_user_role_fkey"
 end

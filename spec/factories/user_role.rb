@@ -15,7 +15,7 @@ FactoryBot.define do
 
     trait :seller do
       role { create(:role, :seller) }
-      activated_at { nil }
+      activated_at { 1.day.ago }
     end
   end
 end
