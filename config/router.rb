@@ -11,7 +11,7 @@ Router = Rucksack.router do
   get '/roles', Roles::Endpoints::Index
 
   get '/admins', Admins::Endpoints::Index
-  # post '/admins', Admins::Endpoints::Create
+  post '/admins', Admins::Endpoints::Create
   get '/admins/:admin_id', Admins::Endpoints::Show
   # patch '/admins/:admin_id', Admins::Endpoints::Update
   # delete '/admins/:admin_id', Admins::Endpoints::Delete
