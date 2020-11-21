@@ -23,6 +23,19 @@ Router = Rucksack.router do
   # patch '/shops/:shop_id/products/:product_id', Products::Endpoints::Update
   # delete '/shops/:shop_id/products/:product_id', Products::Endpoints::Delete
 
+  # get '/comments', Comments::Endpoints::Index
+  # post '/comments', Comments::Endpoints::Create
+  # post '/comments:comment_id', Comments::Endpoints::Review
+  # get '/comments/:comment_id', Comments::Endpoints::Show
+  # patch '/comments/:comment_id', Comments::Endpoints::Update
+  # delete '/comments/:comment_id', Comments::Endpoints::Delete
+
+  # get '/messages', Messages::Endpoints::Index
+  # post '/messages', Messages::Endpoints::Create
+  # get '/messages/:message_id', Messages::Endpoints::Show
+  # patch '/messages/:message_id', Messages::Endpoints::Update
+  # delete '/messages/:message_id', Messages::Endpoints::Delete
+
   get '/users', Users::Endpoints::Index
   post '/users', Users::Endpoints::Create
   post '/users/:user_id/seller', Users::Endpoints::Seller

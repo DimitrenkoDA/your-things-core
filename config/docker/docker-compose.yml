@@ -38,8 +38,8 @@ services:
   api:
     <<: *backend
     command: bundle exec puma -C /app/config/puma.rb
-    expose:
-      - 5000
+    ports:
+      - "5000:5000"
     depends_on:
       - postgres
       - redis

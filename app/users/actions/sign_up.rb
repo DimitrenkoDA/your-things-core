@@ -29,7 +29,7 @@ module Users
         @user = Models::User.find_by(email: email)
 
         if @user.nil?
-          buyer_role = Models::Role.find_by(code: 'buyer')
+          buyer_role = Models::Role.find_or_create_by(code: 'buyer', title: 'Покупатель')
 
           @user = Models::User.new(email: email.to_s)
 
