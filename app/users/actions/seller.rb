@@ -10,7 +10,7 @@ module Users
       def execute!
         authorize!
 
-        role = Models::Role.find_by(code: 'seller')
+        role = Models::Role.find_or_create_by(code: 'seller', title: 'Продавец')
         @user_role = Models::UserRole.find_by(user_id: user_id, role_id: role.id)
 
         if @user_role.nil?

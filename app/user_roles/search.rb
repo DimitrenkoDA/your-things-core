@@ -3,6 +3,8 @@ module UserRoles
     base_scope do
       if current_user.operator?
         Models::UserRole.all
+      elsif current_user.admin?
+        Models::UserRole.inactive.joins(:role).where(roles: { code: 'seller' })
       else
         Models::UserRole.none
       end
