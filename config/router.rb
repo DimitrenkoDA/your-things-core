@@ -13,7 +13,7 @@ Router = Rucksack.router do
   get '/admins', Admins::Endpoints::Index
   post '/admins', Admins::Endpoints::Create
   get '/admins/:admin_id', Admins::Endpoints::Show
-  # patch '/admins/:admin_id', Admins::Endpoints::Update
+  patch '/admins/:admin_id', Admins::Endpoints::Update
   # delete '/admins/:admin_id', Admins::Endpoints::Delete
 
   get '/shops', Shops::Endpoints::Index
