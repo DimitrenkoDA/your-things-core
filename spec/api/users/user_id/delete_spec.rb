@@ -1,5 +1,5 @@
 RSpec.describe "DELETE /users/:user_id", :with_access_token do
-  let!(:user) { create(:admin) }
+  let!(:user) { create(:user) }
 
   let(:current_user) { create(:operator) }
   let(:access_token) { Sessions::Session.token(Sessions::Owners::Operator::KIND, current_user) }
@@ -33,7 +33,7 @@ RSpec.describe "DELETE /users/:user_id", :with_access_token do
   end
 
   context "when current user is not operator" do
-    let(:current_user) { create(:admin) }
+    let(:current_user) { create(:seller) }
     let(:access_token) { Sessions::Session.token(Sessions::Owners::User::KIND, current_user) }
 
     it "responds with 404" do

@@ -3,11 +3,18 @@ Router = Rucksack.router do
   get '/me', Sessions::Endpoints::Show
 
   post '/operators/login', Sessions::Endpoints::Create, params: { kind: Sessions::Owners::Operator::KIND }
+  post '/admins/login', Sessions::Endpoints::Create, params: { kind: Sessions::Owners::Admin::KIND }
   post '/users/login', Sessions::Endpoints::Create, params: { kind: Sessions::Owners::User::KIND }
 
   post '/users/sign_up', Users::Endpoints::SignUp
 
   get '/roles', Roles::Endpoints::Index
+
+  # get '/admins', Admins::Endpoints::Index
+  # post '/admins', Admins::Endpoints::Create
+  # get '/admins/:admin_id', Admins::Endpoints::Show
+  # patch '/admins/:admin_id', Admins::Endpoints::Update
+  # delete '/admins/:admin_id', Admins::Endpoints::Delete
 
   get '/shops', Shops::Endpoints::Index
   post '/shops', Shops::Endpoints::Create

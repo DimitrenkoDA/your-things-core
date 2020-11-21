@@ -1,5 +1,5 @@
 module Models
-  class Operator < Record
+  class Admin < Record
     validates :email, presence: true, uniqueness: true
 
     has_secure_password
@@ -7,11 +7,11 @@ module Models
     before_validation :normalize_email
 
     def operator?
-      true
+      false
     end
 
     def admin?
-      false
+      true
     end
 
     def user?

@@ -3,11 +3,6 @@ FactoryBot.define do
     role
     user
 
-    trait :admin do
-      role { create(:role, :admin) }
-      activated_at { nil }
-    end
-
     trait :buyer do
       role { create(:role, :buyer) }
       activated_at { nil }

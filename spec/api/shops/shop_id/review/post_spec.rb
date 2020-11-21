@@ -12,7 +12,7 @@ RSpec.describe "POST /shops/:shop_id/review", :with_access_token do
 
   context "when current user is admin" do
     let(:current_user) { create(:admin) }
-    let(:access_token) { Sessions::Session.token(Sessions::Owners::User::KIND, current_user) }
+    let(:access_token) { Sessions::Session.token(Sessions::Owners::Admin::KIND, current_user) }
 
     it "responds with 200" do
       post "/shops/#{shop.id}/review"

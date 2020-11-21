@@ -75,7 +75,7 @@ RSpec.describe Users::Actions::Update do
   end
 
   context "when current user is not operator" do
-    let(:current_user) { create(:admin) }
+    let(:current_user) { create(:seller) }
     let(:user_id) { current_user.id }
 
     it "succeeds" do
