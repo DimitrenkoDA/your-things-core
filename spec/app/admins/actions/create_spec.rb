@@ -1,4 +1,4 @@
-RSpec.describe Users::Actions::Create do
+RSpec.describe Admins::Actions::Create do
   subject { described_class.new(current_user, args) }
 
   let(:current_user) { create(:operator) }
@@ -20,13 +20,22 @@ RSpec.describe Users::Actions::Create do
     expect(subject.success?).to be true
   end
 
-  it "creates new user" do
-    expect { subject.execute! }.to change { Models::User.count }.by(1)
+  it "creates new admin" do
+    expect { subject.execute! }.to change { Models::Admin.count }.by(1)
   end
 
-  it "returns new user" do
+  it "returns new admin" do
     subject.execute!
-    expect(subject.user).not_to be_nil
+    expect(subject.admin).not_to be_nil
+  end
+
+  context "when email is nil" do
+    let(:email) { nil }
+
+    it "fails" do
+      subject.execute!
+      expect(subject.fail?).to be true
+    end
   end
 
   context "when password is nil" do

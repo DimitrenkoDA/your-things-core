@@ -6,12 +6,6 @@ FactoryBot.define do
     password { SecureRandom.hex(8) }
     password_confirmation { password }
 
-    factory(:admin) do
-      after(:create) do |admin|
-        create(:user_role, :admin, user: admin)
-      end
-    end
-
     factory(:buyer) do
       after(:create) do |buyer|
         create(:user_role, :buyer, user: buyer)

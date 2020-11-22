@@ -9,36 +9,34 @@ module Users
         optional(:last_name) { filled? & str?}
       end
 
-      attr_reader :user
-
       def execute!
-        @user = search.one!
+        authorize!
 
         if inputs.has_key?(:email)
-          @user.email = inputs[:email]
+          user.email = inputs[:email]
         end
 
         if inputs.has_key?(:first_name)
-          @user.first_name = inputs[:first_name]
+          user.first_name = inputs[:first_name]
         end
 
         if inputs.has_key?(:last_name)
-          @user.last_name = inputs[:last_name]
+          user.last_name = inputs[:last_name]
         end
 
-        unless @user.save
-          fail!(errors: @user.errors)
+        unless user.save
+          fail!(errors: user.errors)
           return
         end
 
         success!
       end
 
-      private
-
-      def search
-        @search ||= Users::Search.new({ user_id: inputs[:user_id] }, current_user: current_user)
+      def user
+        @user ||= Models::User.find(inputs[:user_id])
       end
+
+      private
 
       def authorize!
         return if current_user.operator?

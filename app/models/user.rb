@@ -15,16 +15,16 @@ module Models
       false
     end
 
+    def admin?
+      false
+    end
+
     def user?
       true
     end
 
     def roles
       return self.user_roles.preload(:role).map(&:role)
-    end
-
-    def admin?
-      self.user_roles.joins(:role).where(roles: { code: 'admin' }).any?
     end
 
     def buyer?

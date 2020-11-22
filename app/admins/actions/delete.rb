@@ -1,15 +1,15 @@
-module Shops
+module Admins
   module Actions
     class Delete < Action
       schema do
-        required(:shop_id) { filled? & int? }
+        required(:admin_id) { filled? & int? }
       end
 
       def execute!
         authorize!
-
-        unless shop.destroy
-          fail!(errors: shop.errors)
+      
+        unless admin.destroy
+          fail!(errors: admin.errors)
           return
         end
 
@@ -17,14 +17,14 @@ module Shops
       end
 
       private
-      
-      def shop
-        @shop ||= Models::Shop.find(inputs[:shop_id])
+
+      def admin
+        @admin ||= Models::Admin.find(inputs[:admin_id])
       end
-      
+
       def authorize!
         return if current_user.operator?
-        return if current_user.seller? && current_user.id == shop.user_id
+        return if current_user.id == inputs[:admin_id]
 
         access_denied!
       end

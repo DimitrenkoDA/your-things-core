@@ -1,14 +1,14 @@
-module Users
+module Admins
   module Endpoints
     class Create < Endpoint
       authenticate!
 
       def handle
-        action = Users::Actions::Create.new(current_user, args)
+        action = Admins::Actions::Create.new(current_user, args)
         action.execute!
 
         if action.success?
-          render status: 200, body: json(Users::Presenters::Show.new(action.user).as_json)
+          render status: 200, body: json(Admins::Presenters::Show.new(action.admin).as_json)
         else
           render status: 422, body: json(Errors.new(action.errors).as_json)
         end

@@ -29,7 +29,7 @@ module Shops
       private
 
       def user
-        @user ||= Models::User.find_by(id: user_id)
+        @user ||= Models::User.find(inputs[:user_id])
       end
 
       def authorize!

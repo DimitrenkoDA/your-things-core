@@ -1,4 +1,4 @@
-module Users
+module Admins
   module Actions
     class Create < Action
       schema do
@@ -7,32 +7,33 @@ module Users
         required(:password_confirmation) { filled? & str? }
       end
 
-      attr_reader :user
+      attr_reader :admin
 
       def execute!
         authorize!
-
-        @user = Models::User.new
 
         if inputs[:password] != inputs[:password_confirmation]
           fail!({ errors: { password: 'password and password confirmation do not match' }})
           return
         end
+        
+        @admin = Models::Admin.new
 
-        @user.email = inputs[:email]
-        @user.password = inputs[:password]
-        @user.password_confirmation = inputs[:password_confirmation]
+        @admin.email = inputs[:email]
+        @admin.password = inputs[:password]
+        @admin.password_confirmation = inputs[:password_confirmation]
 
-        unless @user.save
-          rollback!(errors: @user.errors)
+        unless @admin.save
+          rollback!(errors: @admin.errors)
         end
 
         success!
       end
 
-      private def authorize!
-        return if current_user.operator?
+      private
 
+      def authorize!
+        return if current_user.operator?
         access_denied!
       end
     end

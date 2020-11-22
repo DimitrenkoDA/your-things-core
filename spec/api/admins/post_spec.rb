@@ -1,4 +1,4 @@
-RSpec.describe "POST /users", :with_access_token do
+RSpec.describe "POST /admins", :with_access_token do
 
   let(:current_user) { create(:operator) }
   let(:access_token) { Sessions::Session.token(Sessions::Owners::Operator::KIND, current_user) }
@@ -16,7 +16,7 @@ RSpec.describe "POST /users", :with_access_token do
   let(:password_confirmation) { password }
 
   it "responds with 200" do
-    post "/users", body.to_json
+    post "/admins", body.to_json
     expect(last_response.status).to eq(200)
   end
 
@@ -25,7 +25,7 @@ RSpec.describe "POST /users", :with_access_token do
     let(:access_token) { Sessions::Session.token(Sessions::Owners::User::KIND, current_user) }
 
     it "responds with 404" do
-      post "/users", body.to_json
+      post "/admins", body.to_json
       expect(last_response.status).to eq(404)
     end
   end
@@ -34,7 +34,7 @@ RSpec.describe "POST /users", :with_access_token do
     let(:email) { nil }
 
     it "responds with 422" do
-      post "/users", body.to_json
+      post "/admins", body.to_json
       expect(last_response.status).to eq(422)
     end
   end
