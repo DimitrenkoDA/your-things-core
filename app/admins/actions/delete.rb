@@ -16,11 +16,11 @@ module Admins
         success!
       end
 
+      private
+
       def admin
         @admin ||= Models::Admin.find(inputs[:admin_id])
       end
-
-      private
 
       def authorize!
         return if current_user.operator?

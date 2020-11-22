@@ -28,7 +28,7 @@ module Shops
       end
 
       def shop
-        @shop ||= Models::Shop.find(shop_id)
+        @shop ||= Models::Shop.find(inputs[:shop_id])
       end
 
       private

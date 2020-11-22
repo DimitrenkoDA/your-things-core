@@ -15,7 +15,7 @@ module Admins
         if inputs[:password] != inputs[:password_confirmation]
           fail!({ errors: { password: 'password and password confirmation do not match' }})
           return
-        end  
+        end
         
         @admin = Models::Admin.new
 

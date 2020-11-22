@@ -92,7 +92,7 @@ RSpec.describe Users::Actions::Update do
       let(:user_id) { user.id }
 
       it "raises ActiveRecord::RecordNotFound" do
-        expect { subject.execute! }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { subject.execute! }.to raise_error(Action::AccessDenied)
       end
     end
   end

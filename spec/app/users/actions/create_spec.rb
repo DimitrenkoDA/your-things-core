@@ -6,14 +6,14 @@ RSpec.describe Users::Actions::Create do
   let(:args) do
     {
       email: email,
-      first_name: first_name,
-      last_name: last_name
+      password: password,
+      password_confirmation: password_confirmation
     }
   end
 
   let(:email) { FFaker::Internet.email }
-  let(:first_name) { FFaker::Name.first_name }
-  let(:last_name) { FFaker::Name.last_name }
+  let(:password) { SecureRandom.hex(16) }
+  let(:password_confirmation) { password }
 
   it "succeeds" do
     subject.execute!
@@ -29,8 +29,8 @@ RSpec.describe Users::Actions::Create do
     expect(subject.user).not_to be_nil
   end
 
-  context "when first_name is nil" do
-    let(:first_name) { nil }
+  context "when password is nil" do
+    let(:password) { nil }
 
     it "fails" do
       subject.execute!
@@ -38,8 +38,8 @@ RSpec.describe Users::Actions::Create do
     end
   end
 
-  context "when last_name is nil" do
-    let(:last_name) { nil }
+  context "when password_confirmation is nil" do
+    let(:password_confirmation) { nil }
 
     it "fails" do
       subject.execute!
@@ -47,12 +47,17 @@ RSpec.describe Users::Actions::Create do
     end
   end
 
-  context "when email is nil" do
-    let(:email) { nil }
+  context "when password and password_confirmation do not match" do
+    let(:password_confirmation) { SecureRandom.hex(16) }
 
     it "fails" do
       subject.execute!
       expect(subject.fail?).to be true
+    end
+
+    it "returns with error" do
+      subject.execute!
+      expect(subject.errors).to eq(password: 'password and password confirmation do not match')
     end
   end
 

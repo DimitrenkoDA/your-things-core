@@ -5,15 +5,11 @@ module Users
         required(:user_id) { filled? & int? }
       end
 
-      attr_reader :user
-
       def execute!
         authorize!
-        
-        @user = search.one!
 
-        unless @user.destroy
-          fail!(errors: @user.errors)
+        unless user.destroy
+          fail!(errors: user.errors)
           return
         end
 
@@ -22,8 +18,8 @@ module Users
 
       private
 
-      def search
-        @search ||= Users::Search.new({ user_id: user_id }, current_user: current_user)
+      def user
+        @user ||= Models::User.find(inputs[:user_id])
       end
 
       def authorize!

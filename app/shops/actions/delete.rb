@@ -21,7 +21,7 @@ module Shops
       def shop
         @shop ||= Models::Shop.find(inputs[:shop_id])
       end
-
+      
       def authorize!
         return if current_user.operator?
         return if current_user.seller? && current_user.id == shop.user_id

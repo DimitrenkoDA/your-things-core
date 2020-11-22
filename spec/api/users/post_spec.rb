@@ -6,14 +6,14 @@ RSpec.describe "POST /users", :with_access_token do
   let(:body) do
     {
       email: email,
-      first_name: first_name,
-      last_name: last_name,
+      password: password,
+      password_confirmation: password_confirmation
     }
   end
 
   let(:email) { FFaker::Internet.email }
-  let(:first_name) { FFaker::Name.first_name }
-  let(:last_name) { FFaker::Name.last_name }
+  let(:password) { SecureRandom.hex(16) }
+  let(:password_confirmation) { password }
 
   it "responds with 200" do
     post "/users", body.to_json
