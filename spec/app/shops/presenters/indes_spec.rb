@@ -1,6 +1,8 @@
 RSpec.describe Shops::Presenters::Index do
   subject { described_class.new(shops) }
 
+  let(:current_user) { create(:operator) }
+
   let(:one_user) { create(:seller) }
   let(:next_user) { create(:seller) }
 
