@@ -24,6 +24,10 @@ RSpec.describe Users::Actions::Create do
     expect { subject.execute! }.to change { Models::User.count }.by(1)
   end
 
+  it "creates buyer role for user" do
+    expect { subject.execute! }.to change { Models::UserRole.count }.by(1)
+  end
+
   it "returns new user" do
     subject.execute!
     expect(subject.user).not_to be_nil
@@ -58,6 +62,22 @@ RSpec.describe Users::Actions::Create do
     it "returns with error" do
       subject.execute!
       expect(subject.errors).to eq(password: 'password and password confirmation do not match')
+    end
+  end
+
+  context "when user with args email already exists" do
+    let!(:email) { "biba3000@gmail.or" }
+
+    before { create(:buyer, email: "biba3000@gmail.or") }
+
+    it "fails" do
+      subject.execute!
+      expect(subject.fail?).to be true
+    end
+
+    it "returns with error" do
+      subject.execute!
+      expect(subject.errors).to eq(email: 'user with such email alredy exists')
     end
   end
 

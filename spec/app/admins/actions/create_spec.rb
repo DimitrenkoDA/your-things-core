@@ -70,6 +70,22 @@ RSpec.describe Admins::Actions::Create do
     end
   end
 
+  context "when admin with args email already exists" do
+    let!(:email) { "biba3000@gmail.or" }
+
+    before { create(:admin, email: "biba3000@gmail.or") }
+
+    it "fails" do
+      subject.execute!
+      expect(subject.fail?).to be true
+    end
+
+    it "returns with error" do
+      subject.execute!
+      expect(subject.errors).to eq(email: 'admin with such email alredy exists')
+    end
+  end
+
   context "when current user is not operator" do
     let(:current_user) { create(:admin) }
 

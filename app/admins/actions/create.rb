@@ -17,6 +17,11 @@ module Admins
           return
         end
         
+        if Models::Admin.find_by(email: inputs[:email])
+          fail!({ errors: { email: 'admin with such email alredy exists' }})
+          return
+        end
+
         @admin = Models::Admin.new
 
         @admin.email = inputs[:email]
