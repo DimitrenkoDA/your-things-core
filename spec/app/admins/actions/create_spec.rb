@@ -71,9 +71,9 @@ RSpec.describe Admins::Actions::Create do
   end
 
   context "when admin with args email already exists" do
-    let!(:email) { "biba3000@gmail.or" }
+    let!(:email) { "bib03000@gmail.or" }
 
-    before { create(:admin, email: "biba3000@gmail.or") }
+    before { create(:admin, email: "bib03000@gmail.or") }
 
     it "fails" do
       subject.execute!
